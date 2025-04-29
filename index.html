@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>U8 Maroon Lions</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>U8 Maroon Lions</h1>
+
+  <!-- Add links to other repositories -->
+  <div class="gallery-links">
+    <div class="gallery-link">
+      <a href="https://mariebridgwood.github.io/Game1Part1/" target="_blank">Game 1 - Part 1</a>
+    </div>
+    <div class="gallery-link">
+      <a href="https://mariebridgwood.github.io/Game1Part2/" target="_blank">Game 1 - Part 2</a>
+    </div>
+
+    <!-- Add more as needed -->
+  </div>
+
+  <div id="gallery" class="gallery"></div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" style="display:none;">
+    <span class="close">&times;</span>
+    <img src="" alt="Enlarged photo">
+    <button class="prev" onclick="changeImage(-1)">&#10094;</button>
+    <button class="next" onclick="changeImage(1)">&#10095;</button>
+  </div>
+
+  <script>
+    const imageList = [
+ "DSC_0351.JPG",
+"DSC_0352.JPG",
+"DSC_0353.JPG",
+"DSC_0354.JPG",
+"DSC_0355.JPG",
+"DSC_0356.JPG",
+"DSC_0357.JPG",
+"DSC_0358.JPG",
+"DSC_0359.JPG",
+"DSC_0360.JPG",
+"DSC_0361.JPG",
+"DSC_0362.JPG",
+"DSC_0363.JPG",
+"DSC_0364.JPG",
+"DSC_0365.JPG",
+"DSC_0366.JPG",
+"DSC_0367.JPG",
+"DSC_0368.JPG",
+"DSC_0369.JPG",
+"DSC_0370.JPG",
+"DSC_0371.JPG",
+"DSC_0372.JPG",
+"DSC_0373.JPG",
+"DSC_0374.JPG",
+"DSC_0375.JPG",
+"DSC_0376.JPG",
+"DSC_0377.JPG",
+"DSC_0378.JPG",
+"DSC_0379.JPG",
+"DSC_0380.JPG",
+"DSC_0381.JPG",
+"DSC_0382.JPG",
+"DSC_0383.JPG",
+"DSC_0384.JPG",
+"DSC_0385.JPG",
+"DSC_0386.JPG",
+"DSC_0387.JPG",
+"DSC_0388.JPG",
+"DSC_0389.JPG",
+"DSC_0390.JPG",
+"DSC_0391.JPG",
+"DSC_0392.JPG",
+"DSC_0393.JPG",
+"DSC_0394.JPG",
+"DSC_0395.JPG",
+"DSC_0396.JPG",
+"DSC_0397.JPG",
+"DSC_0398.JPG",
+"DSC_0399.JPG",
+"DSC_0400.JPG"
+
+
+    ];
+
+    const gallery = document.getElementById("gallery");
+    let currentImageIndex = 0;
+
+    // Dynamically add images
+    imageList.forEach((filename, index) => {
+      const photoDiv = document.createElement('div');
+      photoDiv.className = 'photo';
+      photoDiv.innerHTML = `
+        <img src="images/${filename}" alt="${filename}" data-index="${index}">
+        <a href="images/${filename}" download>Download</a>
+      `;
+      gallery.appendChild(photoDiv);
+    });
+
+    // Lightbox elements
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxImage = document.querySelector('.lightbox img');
+    const closeBtn = document.querySelector('.close');
+
+    // Add event listeners AFTER adding images
+    const thumbnails = document.querySelectorAll('.gallery img');
+
+    function openLightbox(event) {
+      event.preventDefault();
+      currentImageIndex = Number(event.target.dataset.index);
+      updateLightboxImage();
+      lightbox.style.display = 'flex';
+    }
+
+    function updateLightboxImage() {
+      lightboxImage.src = `images/${imageList[currentImageIndex]}`;
+    }
+
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+    }
+
+    function changeImage(direction) {
+      currentImageIndex += direction;
+      if (currentImageIndex < 0) {
+        currentImageIndex = imageList.length - 1;
+      } else if (currentImageIndex >= imageList.length) {
+        currentImageIndex = 0;
+      }
+      updateLightboxImage();
+    }
+
+    // Attach click events
+    thumbnails.forEach(thumbnail => {
+      thumbnail.addEventListener('click', openLightbox);
+    });
+
+    // Close lightbox when clicking outside the image or on close button
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || e.target === closeBtn) {
+        closeLightbox();
+      }
+    });
+
+  </script>
+
+</body>
+</html>
